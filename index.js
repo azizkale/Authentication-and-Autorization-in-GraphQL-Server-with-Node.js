@@ -38,6 +38,6 @@ const server = new GraphQLServer({
     claims: getClaims(req),
   }),
 });
-server.start({ port: 4001 }, () =>
-  console.log("Server is running on http://localhost:4001")
+server.start({ port: 4000 }, () =>
+  console.log("Server is running on http://localhost:4000")
 );
