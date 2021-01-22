@@ -9,11 +9,13 @@ const resolvers = {
       let user = Users.find(
         (u) => u.username === username && u.password === password
       );
-      const token = jwt.sign(
-        { username: user.username, password: user.password, role: user.role },
-        "MY_TOKEN_SECRET"
-      );
-      return token;
+      if (user) {
+        const token = jwt.sign(
+          { username: user.username, password: user.password, role: user.role },
+          "MY_TOKEN_SECRET"
+        );
+        return token;
+      } else return "unknown user";
     },
   },
   Mutation: {
