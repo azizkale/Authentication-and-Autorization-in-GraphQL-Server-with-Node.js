@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import { rule, shield, and, or, not } from "graphql-shield";
 import typeDefs from "./TypeDefs";
 import resolvers from "./resolvers";
+
 function getClaims(req) {
   let token;
   try {
@@ -13,6 +14,7 @@ function getClaims(req) {
   console.log(token);
   return token;
 }
+
 // Rules
 const isAuthenticated = rule()(async (parent, args, ctx, info) => {
   return ctx.claims !== null;
@@ -30,6 +32,7 @@ const permissions = shield({
     addUser: and(isAuthenticated, canAddUser),
   },
 });
+
 const server = new GraphQLServer({
   typeDefs,
   resolvers,
@@ -38,6 +41,7 @@ const server = new GraphQLServer({
     claims: getClaims(req),
   }),
 });
+
 server.start({ port: 4000 }, () =>
   console.log("Server is running on http://localhost:4000")
 );
